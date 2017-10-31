@@ -8,7 +8,6 @@
 ### My solution
 - I used a simple solution seperating concerns from the large update_quality method but keeping them in the Gilded Rose class.
 - The solution I came up with is fine for a first try however I will continue to abstract it into separate classes.
-- I have not yet tried to tackle the conjured mana bun problem so that's the next step.
 
 ### Technology used
 - Ruby

@@ -118,4 +118,13 @@ describe GildedRose do
     expect(items[0].sell_in).to eq(-1)
   end
 
+  it 'degrades at double the rate of other items if it is Conjured' do
+    items = [Item.new("Conjured Mana Cake", 3, 6)]
+    n = 3
+    n.times do
+      GildedRose.new(items).update_quality()
+    end
+    expect(items[0].quality).to eq(0)
+  end
+
 end
