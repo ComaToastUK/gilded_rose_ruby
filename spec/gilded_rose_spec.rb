@@ -81,4 +81,13 @@ describe GildedRose do
     expect(items[0].quality).to eq(40)
   end
 
+  it 'increases in quality near its sell_in if it is Backstage Passes' do
+    items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 10)]
+    n = 4
+    n.times do
+      GildedRose.new(items).update_quality()
+    end
+    expect(items[0].quality).to eq(14)
+  end
+
 end
