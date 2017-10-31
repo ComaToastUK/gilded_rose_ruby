@@ -1,20 +1,20 @@
-### The Gilded Rose
+# The Gilded Rose
 ## Refactoring kata
 
-# Objective
+### Objective
 - Refactor the horribly procedural and heavily nested if statements of the Gilded Rose.
 - Test drive the refactor.
 
-# My solution
+### My solution
 - I used a simple solution seperating concerns from the large update_quality method but keeping them in the Gilded Rose class.
 - The solution I came up with is fine for a first try however I will continue to abstract it into separate classes.
-- I have not yet tried to tackle the conjured mana bun problem so that's the next step. 
+- I have not yet tried to tackle the conjured mana bun problem so that's the next step.
 
-# Technology used
+### Technology used
 - Ruby
 - rspec for testing
 
-# The challenge
+### The challenge
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a
 prime location in a prominent city ran by a friendly innkeeper named
 Allison. We also buy and sell only the finest goods. Unfortunately, our
