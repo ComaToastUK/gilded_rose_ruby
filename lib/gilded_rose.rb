@@ -1,5 +1,4 @@
 class GildedRose
-
   MINIMUM_QUALITY = 0
 
   def initialize(items)
@@ -10,9 +9,9 @@ class GildedRose
     @items.each do |item|
       if item.name == 'Aged Brie'
         brie(item)
-      elsif item.name == "Sulfuras, Hand of Ragnaros"
+      elsif item.name == 'Sulfuras, Hand of Ragnaros'
         sulfuras(item)
-      elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
+      elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
         backstage(item)
       elsif item.name == 'Conjured Mana Cake'
         conjured(item)
@@ -37,8 +36,8 @@ class GildedRose
     item.quality += 1 if item.sell_in <= 0
   end
 
-  def sulfuras(item)
-    return
+  def sulfuras(_item)
+    nil
   end
 
   def backstage(item)
@@ -54,9 +53,8 @@ class GildedRose
     item.sell_in -= 1
     item.quality = 0 if item.quality <= 0
     return if item.quality <= 0
-    item.quality -=2
+    item.quality -= 2
   end
-
 end
 
 class Item
@@ -68,7 +66,7 @@ class Item
     @quality = quality
   end
 
-  def to_s()
+  def to_s
     "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
