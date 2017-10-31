@@ -16,14 +16,14 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      if @exceptions.include? item == false
-        normal_item(item)
-      elsif item.name == 'Aged Brie'
+      if item.name == 'Aged Brie'
         brie(item)
       elsif item.name == "Sulfuras, Hand of Ragnaros"
         sulfuras(item)
       elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
         backstage(item)
+      else
+        normal_item(item)
       end
     end
   end
