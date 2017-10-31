@@ -29,9 +29,9 @@ describe GildedRose do
       expect(items[0].sell_in).to eq(2)
     end
 
-    it 'reduces quality by double after sell_in has passed' do
-      items = [Item.new("foo", 5, 8)]
-      n = 6
+    it 'reduces quality by double after sell_in has passed 0' do
+      items = [Item.new("foo", 5, 9)]
+      n = 5
       n.times do
         GildedRose.new(items).update_quality()
       end
