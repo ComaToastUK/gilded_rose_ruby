@@ -43,7 +43,7 @@ describe GildedRose do
     end
   end
 
-  context 'checking item degradation cannot exceed 0' do
+  context 'item degradation cannot exceed 0' do
     it 'has a minimum item quality of 0' do
       items = [Item.new('foo', 10, 10)]
       n = 11
@@ -55,68 +55,80 @@ describe GildedRose do
     end
   end
 
-  it 'has a maximum quality value of 50' do
-    items = [Item.new('foo', 10, 50)]
-    GildedRose.new(items).update_quality
-    expect(items[0].quality).to be < 50
-  end
-
-  it 'does not degrade if it is Sulfuras' do
-    items = [Item.new('Sulfuras, Hand of Ragnaros', 10, 50)]
-    GildedRose.new(items).update_quality
-    expect(items[0].quality).to eq(50)
-  end
-
-  it 'does not reduce sell_in if it is Sulfuras' do
-    items = [Item.new('Sulfuras, Hand of Ragnaros', 10, 50)]
-    GildedRose.new(items).update_quality
-    expect(items[0].sell_in).to eq(10)
-  end
-
-  it 'gains in quality after sell_in if it is Aged Brie' do
-    items = [Item.new('Aged Brie', 2, 2)]
-    n = 20
-    n.times do
+  context 'item quality cannot exceed maximum value' do
+    it 'has a maximum quality value of 50' do
+      items = [Item.new('foo', 10, 50)]
       GildedRose.new(items).update_quality
+      expect(items[0].quality).to be < 50
     end
-    expect(items[0].quality).to eq(41)
   end
 
-  it 'increases in quality if it is Backstage Passes' do
-    items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
-    n = 4
-    n.times do
+  context 'legendary item does not degrade' do
+    it 'does not degrade if it is Sulfuras' do
+      items = [Item.new('Sulfuras, Hand of Ragnaros', 10, 50)]
       GildedRose.new(items).update_quality
+      expect(items[0].quality).to eq(50)
     end
-    expect(items[0].quality).to eq(14)
   end
 
-  it 'doubles its quality increase after sell_in < 10 if it is Backstage Passes' do
-    items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
-    n = 6
-    n.times do
+  context 'legendary item does not reduce sell_in value' do
+    it 'does not reduce sell_in if it is Sulfuras' do
+      items = [Item.new('Sulfuras, Hand of Ragnaros', 10, 50)]
       GildedRose.new(items).update_quality
+      expect(items[0].sell_in).to eq(10)
     end
-    expect(items[0].quality).to eq(17)
   end
 
-  it 'triples its quality increase after sell_in < 5 if it is Backstage Passes' do
-    items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
-    n = 11
-    n.times do
-      GildedRose.new(items).update_quality
+  context 'aged brie gains in quality over time' do
+    it 'gains in quality after sell_in if it is Aged Brie' do
+      items = [Item.new('Aged Brie', 2, 2)]
+      n = 20
+      n.times do
+        GildedRose.new(items).update_quality
+      end
+      expect(items[0].quality).to eq(41)
     end
-    expect(items[0].quality).to eq(28)
   end
 
-  it 'drops to 0 quality after sell_in <= 0 if it is Backstage Passes' do
-    items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
-    n = 16
-    n.times do
-      GildedRose.new(items).update_quality
+  context 'backstage passes gain in quality over time' do
+    it 'increases in quality if it is Backstage Passes' do
+      items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
+      n = 4
+      n.times do
+        GildedRose.new(items).update_quality
+      end
+      expect(items[0].quality).to eq(14)
     end
-    expect(items[0].quality).to eq(0)
-    expect(items[0].sell_in).to eq(-1)
+
+    it 'doubles its quality increase after sell_in < 10 if it is Backstage Passes' do
+      items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
+      n = 6
+      n.times do
+        GildedRose.new(items).update_quality
+      end
+      expect(items[0].quality).to eq(17)
+    end
+
+    it 'triples its quality increase after sell_in < 5 if it is Backstage Passes' do
+      items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
+      n = 11
+      n.times do
+        GildedRose.new(items).update_quality
+      end
+      expect(items[0].quality).to eq(28)
+    end
+  end
+
+  context 'backstage passes quality depeciates to 0 after sell_in reaches 0' do
+    it 'drops to 0 quality after sell_in <= 0 if it is Backstage Passes' do
+      items = [Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 10)]
+      n = 16
+      n.times do
+        GildedRose.new(items).update_quality
+      end
+      expect(items[0].quality).to eq(0)
+      expect(items[0].sell_in).to eq(-1)
+    end
   end
 
   it 'degrades at double the rate of other items if it is Conjured' do
