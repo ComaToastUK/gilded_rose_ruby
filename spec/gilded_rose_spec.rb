@@ -31,7 +31,7 @@ describe GildedRose do
 
     it 'reduces quality by double after sell_in has passed' do
       items = [Item.new("foo", 5, 8)]
-      n = 5
+      n = 6
       n.times do
         GildedRose.new(items).update_quality()
       end
@@ -78,7 +78,7 @@ describe GildedRose do
     n.times do
       GildedRose.new(items).update_quality()
     end
-    expect(items[0].quality).to eq(40)
+    expect(items[0].quality).to eq(41)
   end
 
   it 'increases in quality if it is Backstage Passes' do
