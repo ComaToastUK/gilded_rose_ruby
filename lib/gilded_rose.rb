@@ -4,12 +4,12 @@ class GildedRose
 
   def initialize(items)
     @items = items
-    @exceptions = ["Aged Brie", "Sulfuras, Hand of Ragnaros", "Backstage passes to a TAFKAL80ETC concert"]
   end
 
   def normal_item(item)
     item.sell_in -= 1
-    return if item.quality == 0
+    item.quality = 0 if item.quality <= 0
+    return if item.quality <= 0
     item.quality -= 1
     item.quality -= 1 if item.sell_in <= 0
   end
