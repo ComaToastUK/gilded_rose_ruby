@@ -1,5 +1,6 @@
+require_relative 'item'
+
 class GildedRose
-  MINIMUM_QUALITY = 0
 
   def initialize(items)
     @items = items
@@ -22,7 +23,7 @@ class GildedRose
   end
 
   def normal_item(item)
-    item.sell_in -= 1
+    decrease_sell_in(item)
     item.quality = 0 if item.quality <= 0
     return if item.quality <= 0
     item.quality -= 1
@@ -30,7 +31,7 @@ class GildedRose
   end
 
   def brie(item)
-    item.sell_in -= 1
+    decrease_sell_in(item)
     return if item.quality >= 50
     item.quality += 1
     item.quality += 1 if item.sell_in <= 0
@@ -41,7 +42,7 @@ class GildedRose
   end
 
   def backstage(item)
-    item.sell_in -= 1
+    decrease_sell_in(item)
     return if item.quality >= 50
     return item.quality = 0 if item.sell_in < 0
     item.quality += 1
@@ -50,23 +51,13 @@ class GildedRose
   end
 
   def conjured(item)
-    item.sell_in -= 1
+    decrease_sell_in(item)
     item.quality = 0 if item.quality <= 0
     return if item.quality <= 0
     item.quality -= 2
   end
 end
 
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s
-    "#{@name}, #{@sell_in}, #{@quality}"
-  end
+def decrease_sell_in(item)
+    item.sell_in -= 1
 end
